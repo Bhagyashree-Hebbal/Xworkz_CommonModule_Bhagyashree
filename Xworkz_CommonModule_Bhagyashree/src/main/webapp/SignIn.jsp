@@ -1,0 +1,69 @@
+<%@page isELIgnored = "false"%>
+<html>
+<head>
+    <title>SignIn Page</title>
+    <style>
+        body {
+            background-image: url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBxAQDw8QDxAPDw8PDw8PDw4NDQ8NDw8NFhEWFhYRFRUYHSggGBolGxUVITEhJSkrLi4uFx8zODMsNygtLisBCgoKDg0OFxAQFS0dHR0rLSsvKy0tLS0rKystLS0tLS0tLSstLS0tKy0rLS0tLS0rLSsrKystNystLSstKy0tK//AABEIAKgBLAMBIgACEQEDEQH/xAAbAAADAQEBAQEAAAAAAAAAAAABAgMABAUGB//EADcQAAIBAgMFBgYABgIDAAAAAAABAgMREiExBEFRYXEigZGhscEFMkJS0fATYnKS4fGishRTgv/EABkBAAMBAQEAAAAAAAAAAAAAAAABAgMEBf/EACYRAQEBAQABBAECBwAAAAAAAAABEQIhAxIxQVEyYSJxgZGx0eH/2gAMAwEAAhEDEQA/AP2JMZMkmOmcLU9wpiowwcIiYyAxNcFwgBuYBkBCYxg0MG4DD0DcBjBoYxjXFoYBgNgBbBcAGBi2I2FsEfTMNUE3u72KZisi05BDcCQGCiyZNjSYjYNJAbOilUybfcQUePgapVS39yELN8JbVK653atbXmRj8q5OS/fEXaZmT7C6yfl/gltJnMRZSgsu9+xKZemrRXT1zG06+Ea7zJDTd2KNpJ4e8mMmTTGQ5XjqJhuImFMYPcZMS4QM5hbhuMGNcUwwe5rimuANcIlw3EMMC4LmuAwbmBcFwAtgAFaoZtJitgZhHIzBu6sDNN6dBGG4UMgEmLdkTkwyZNsF8wWwJCORWeUO4F3w56tXcjnnIaTE3rqhNpMLtXDn7hqZKK/l9Xf0En2ppfvU053k3u3dBKz4La7S4+nEttErK3EGzR1lu0XuSqzuxw556/kmBmYCmr3Ex0STHTI145wpioJUoOhkTTGTGDmFTGGGTDcBgBrmuKYDNcNxDXAGMLc1xgxhbmuANc0XmJcKYGwGZvMVsVOM2aevgK2F6k2mDNMzFqMk4k5CtkseY1w1v7Qkzr2hdl9EcMmehDtQXOK9AT34yvLYl878F5sNTJsjVll1B0Sa0ZavjkugYxeSWr/f3oLTXkdVNYY43q/lXIFdXC7RJRSiuHkcrDOV3dispXHOQGK2FsUbSPcTDcmmMmZvHUTGTJIdMYw6GTETGQ9LDoKYiGTHoOBguFD0CjWGyNcWjS2BcLYjYaDXCpEjYmLTxbEEip8V4BvwfcP3DFANCqpxGuPRhZ6k7jyEkhWr5a5r5rp7CNmvnHrYVOw9ye0OyY7IbY+z3knzNsctx1Ii2aMgdeHkzu2CV4W4Nr39zzpM6dhq2Ur8n++Q2fq87yjtitOXicXzMvts7yaWbeoaFJJXeS3v2QmvP8PMUo01q/ljrzfAjtFZyfLcg1618llFaITDkVD55+6mxWwzQjZTaM2K2BsVsantJjJkkxkzF4yyYyZFSHTGFUxkySYyYBZMKJpjXGWKDpkbmxgMWYMRHGG4H7VLiOQspCuQHIbEC4twXEqQbmcuYjkK5Aqcq431HhUObEPGaevj+Q0Xl1MncaKZOpkx1ECaFv5NMe90SkJpFpvU5tsfY7y0neL6HNWd6b5C0/TnmOVMXFYWMgVGDsxRSCpNZL5n/wAV+ScHZLja6vol9zK0afhrnrJ8XyGijGmlm9N8t75IlVrXy0S0RTa5acDlYRXE3zTwV2WZqNNpXtmzSyGLdqFZkGwzldk3IuNuYLYlwSkJiGvHtpjJkVIZSMHjKpjpkkxkxliqY8WRQ8WMYsmHESxiuYDF3MFyakG4HilzYieIGIWqxS4SWI2Iej2nuBsXEK2CpBkxMQWTkJciikNCDehBu3QeFRrQDs/Dso1LZPTzQ9SF15pnD/5O5+JantSTw3Tjueg9ZdcX5hovO3H1M/8AYa0fPyl/n1sSnLfx16iE8njvXd+/u85IvKUep0t534nJWdpEtOHDGQ0VifJa8+C/eZKq7Sa55HfNKlBJ2xav+t/hZePEbq6uZn2lLLXNvNLi+PQNObxHMp3xSfTv/wBF9l3N6v5Y7rJLX8AmzI6KsU85Oyem9tcbe5Km96Vubzl4/gav8zzvbs3573+8Rbj0p8HlLicm0Vdxq9fcjllIvmNeOPsWxJSFcicpFt5DOQjkK5CuQ1Y9tMdSOdSHUjneK6ExkyCkUTAloyGczncwYwGL4zYiGIKkCsXxGxkcQcQHiuIOIkpGUhniuIKZPEFMDxS4GwwhcFSL8AOFuBsW3EZYeIKJi3HZs1eGG0sjmnTiRnHgwOydQ20tX7OhJSExWEkxNZy9XZdoxLDLPK2e+IakbXT8eW6X5PKhVt7M9PZ6yqK2klmgYd+n7bs+Ai9U9SG06dCtVWzJ1c89z1EfPzrkpJYlN6Qzb5rR/vBHLtW0Obvu3Lgi21LClD7nn1+n8d7OShHtJPSPafOCVxx18yfqdFR4Uo77K/8AVq/bwL7NKyu/pzXNtXb8UcEp4pZ8Ly9X628DroycXJytikkow+2K3vq93W4J6ngznxI1K/AhOq8yWM055a8+mo5CORNzEcy8ayKOQjkI5CtlKkM5C4hHIVzGrHtxkOmc6kOpHO8J0qQXM58YcYDFsQUyOIKkJWLJhxEcQcQDFlIOIjiCpAeLJjYiGIOIFSLYitF9/U5cRSEwPHqUEkv1C1pcHuyOWNbLffdY6FC6V2+a9hM7M81xyk2NGhN/S7cXkvE7HOMNEk+Wv+DnqbU9yXXVjVOur8QYbK/uh/en6GeycZ011mkRltMuPkib2qa0l5IFe3v8qz+HN/LKMv6ZJnPPYai3Pwv6BfxCpvalylFMeHxS3zU7LjTbivDQFyerP3ckqEuF+mvhqW2TsdqWSWia1fA6l8QpzyxZ8Jr3J1sL+ZZcdUu/cSr3W+OpjrhNVI33/wDbpzI4LOz+V5kYXStTkpLXBLjyZ2UKqqXWamvmhJJPqhXyxvPt+Pj/AA83aqONNfVHT+ZHJbs33y7F7W+bU79slaUYrVZxfH+XoxtuoKUIVILJzi5rRxaUl6v3FrfnvJN+3jxlliSvKcr217KfZvyclfpDmdWwRvKV3dt5vXzG+LbNgp2jpk5vS+it00/b3hsDsm/u/fYuXw1lnXFsLtqUcvE4p5b08lo7h2udpNZcV6kHWNeXTzz4hpTBG75b23olxJK8moxV5N2SW9jVqiXZi7pay++X3dOHLqy1Z9HlUSyj4vVkXMm5CORSpyq5C4iWI6oU0ksV7vPLgHwd8PSUhsRzqQVIweFjoUhlI51IZSA18QykQxBUhHIupBxEVIKkB4tiDiIpjYgPFVIa5FMZMFYqmMmSTGTA8duzR3vRebOipXssv9I5Mduzw9RZzFiPbt2mlMRyJuQrkPGsh5SIzkZyJyY8a8wsmTcraZdMijg3omxXs1R6Ql4DxpLPtJ1eNn1Wfigwq2+Wbi+EtP7l7oMtjq/+uf8AazmnCS1TXUVipldUq7i+0nFvSUc4vu0fcdNH4hnHHufZqRauukvZnlwrSjpmnrGSvF9xWnhnlB4ZPWlN3jLo/Z+JNhdenLPL6WrTjVWJWb1y3u2ttz4obYaycWpZNZST0fP95nz+z7TOk7q9lrGV24rnxXPVHdOspr+JTz3Tg+D4pa92vJ5Gdjj69Gzx9G+JbTjTjbJXd/usmeTstbAsM9zWfLielUs42zs1dPVp8ee7rk9TzNpo3vDSaWKm75SW+PTgx8uj0sz2l+IvK6tweSeV08nu6nl1JW6PNdClPaNYSya+W/nFkZRbtHnlyTOjmY7eOcmL0qmCDl9U7xi+EPqffp4kMRtrk73+ldiOa+lK6t3pdxDEaSK5n2q5COYjmPstB1JKK01b4LiP4O+Pl0/Ddmc23uVo3/mf4Sb8C9eXadtPbd5WO+0YQUIaRhObe9yasmePOtm7cWZy+6sOer1bXapDKRBMZMnHlrqQykQUhlIMC6kFSIpjpiwKpjpkkwpgatw3J3DcMXiikMpEkMmGHiqY9OWfTMgmMpBhyOiM9TORGMjYgw8UchWxHIFx4uQzYrkByJykPFyHkSc+Ht+C9LNAUVF8/QnTiiuoXd78E7ehltE/udvtu2u+9/QaMsjnrTw9WRqZzv0pOUH80IPi4r+G+5xy8Uc9bYIyV4StyqWtfhjWXikTxhVTufFZDaSWfAqtOm1CtF2+meskuKf1LoUlFwtUpaa2jnGS32XqgR2mywtJxesWk4v/AOfdWYKfZd6LunnKhOWv9Etb8nn1FYVn7f6/466VeM43WS1lH7X9y5X/AHjzbdTbVllOOcHuvw6P1OilShX7VB4K0dabtHG98WtFLyfmTcrrDJYWtz1T0t089z3EWZWfOS+P7Pmtunid9JekuH77FNhqJ3byaT6Xtp01E+MUJRm3x0e5r9/dDkpVbRclrdJxe/8AbM6ufPLvnnnw6NoVnlfPXjfgyDkdSmmk75XWe+L5ibRQtZrRrW978ypTlc+I9uEP4NJL655y/B5Xw+niqwW6930WZ37dVvU7xdebjP1PNkejCDk6i4QivNHDU2dKTVtG14M9ClUwyqW1dNtep5201m5yfFtro8/cjndY8bqakMpGMN5xlIdMBhBRMdMxhGZSCmYwKMmMmYwKg4hsQDAuDiCpAMNUMpBxGMABsDkYw1QkpCORjA0hqdSxRSuzGJ6HUWclFc/Q5tqho73uExnPkufFjkuPHMxi63q62WVr99t5xVLpmMLms+OtorartNywVVa1TNqS+2ol8y56rLgj0qe3RrXjUShXSzxNWqK1r4tHf7tHo918YfUmD1PTnz+HmfEcuzUTwttRk1nF/bLgeBtELNJcW+7d7mMV6Lf0LvMobNtFnno8pLXI76nZWWcHnbWwDGvUyr7U+EW/jJrhL0DtMWqmelzGIv6mV/X/AEd/8bDOE38uUZd6/wAHHtdOam1FNpZJpblkvKxjE7jLcf/Z');
+            background-size: cover;
+            background-position: center;
+            font-family: Arial, sans-serif;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .signin-container {
+            background: rgba(0, 0, 0, 0.6);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 300px;
+            text-align: center;
+        }
+        .signin-container h2 {
+            color: #fff;
+            margin-bottom: 20px;
+        }
+        input[type="email"], input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .message {
+            margin-top: 20px;
+            color: #ffcc00;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="signin-container">
+        <h2>Sign In</h2>
+        <form action="signin" method="post">
+            <input type="email" name="email" placeholder="Enter your email" required>
+            <input type="password" name="password" placeholder="Enter your password" required>
+            <button type="submit" class="btn btn-info btn-block">Sign In</button>
+        </form>
+        <div class="message">${msg}</div>
+    </div>
+</body>
+</html>
