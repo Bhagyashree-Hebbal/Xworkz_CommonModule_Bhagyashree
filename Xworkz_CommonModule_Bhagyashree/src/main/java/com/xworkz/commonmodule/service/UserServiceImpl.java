@@ -33,11 +33,32 @@ public class UserServiceImpl implements UserService{
         return true;
     }
 
-//    @Override
-//    public String getNameByEmailAndPassword(String email, String password) {
-//        String name=userRepository.getNameByEmailAndPassword(email, password);
-//        return name;
-//    }
+    @Override
+    public Long countByName(String name) {
+        Long count = userRepository.countByName(name);
+        return count;
+    }
+
+    @Override
+    public Long countByEmail(String email) {
+        return userRepository.countByEmail(email);
+    }
+
+    @Override
+    public Long countByPhone(long phone) {
+        return userRepository.countByPhone(phone);
+    }
+
+    @Override
+    public Long countByAlterEmail(String alterEmail) {
+        return userRepository.countByAlterEmail(alterEmail);
+    }
+
+    @Override
+    public Long countByAlterPhone(long alterPhone) {
+        return userRepository.countByAlterPhone(alterPhone);
+    }
+
 
     public static String generateRandomPassword() {
         String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -51,4 +72,5 @@ public class UserServiceImpl implements UserService{
 
         return password.toString();
     }
+
 }

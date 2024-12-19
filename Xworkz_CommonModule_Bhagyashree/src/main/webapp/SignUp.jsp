@@ -56,19 +56,19 @@
         <form action="signup" method="post">
             <h2 class="text-center">Sign Up</h2>
             <div class="form-group">
-                <input type="text" class="form-control" name="name" placeholder="Enter your name" required>
+                <input type="text" class="form-control" name="name" id="name" onChange="onNameChange()" placeholder="Enter your name" required>
             </div>
             <div class="form-group">
-                <input type="email" class="form-control" name="email" placeholder="Enter your email" required>
+                <input type="email" class="form-control" name="email" id="email" onChange="onEmailChange()" placeholder="Enter your email" required>
             </div>
             <div class="form-group">
-                <input type="number" class="form-control" name="phone" placeholder="##########" required>
+                <input type="number" class="form-control" name="phone" id="phone" onChange="onPhoneChange()" placeholder="##########" required>
             </div>
             <div class="form-group">
-                <input type="email" class="form-control" name="alterEmail" placeholder="Enter your alter email">
+                <input type="email" class="form-control" name="alterEmail" id="alterEmail" onChange="onAlterEmailChange()" placeholder="Enter your alter email">
             </div>
             <div class="form-group">
-                <input type="number" class="form-control" name="alterPhone" placeholder="##########">
+                <input type="number" class="form-control" name="alterPhone" id="alterPhone" onChange="onAlterPhoneChange()" placeholder="##########">
             </div>
             <div class="form-group">
                 <input type="text" class="form-control" name="location" placeholder="Enter your location">
@@ -79,6 +79,47 @@
             ${msg}
         </div>
     </div>
+    <script>
+         function onNameChange(){
+         console.log('this is on place name');
+         var name = document.getElementById('name').value;
+         var xhttp = new XMLHttpRequest();
+         xhttp.open("GET","http://localhost:8080/Xworkz_CommonModule_Bhagyashree/name/" + name,true);
+         xhttp.send();
+         }
+
+         function onEmailChange() {
+         console.log('this is on place email');
+         var email = document.getElementById('email').value;
+         var xhttp = new XMLHttpRequest();
+         xhttp.open("GET", "http://localhost:8080/Xworkz_CommonModule_Bhagyashree/email/" + email, true);
+         xhttp.send();
+         }
+
+         function onPhoneChange() {
+         console.log('this is on place phone');
+         var phone = document.getElementById('phone').value;
+         var xhttp = new XMLHttpRequest();
+         xhttp.open("GET", "http://localhost:8080/Xworkz_CommonModule_Bhagyashree/phone/" + phone, true);
+         xhttp.send();
+         }
+
+         function onAlterEmailChange() {
+         console.log('this is on place alterEmail');
+         var alterEmail = document.getElementById('alterEmail').value;
+         var xhttp = new XMLHttpRequest();
+         xhttp.open("GET", "http://localhost:8080/Xworkz_CommonModule_Bhagyashree/alterEmail/" + alterEmail, true);
+         xhttp.send();
+         }
+
+         function onAlterPhoneChange() {
+         console.log('this is on place alterPhone');
+         var alterPhone = document.getElementById('alterPhone').value;
+         var xhttp = new XMLHttpRequest();
+         xhttp.open("GET", "http://localhost:8080/Xworkz_CommonModule_Bhagyashree/alterPhone/" + alterPhone, true);
+         xhttp.send();
+         }
+    </script>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>

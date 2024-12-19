@@ -29,10 +29,10 @@ public class UserController {
         return "SignUp";
     }
 
-//    @PostMapping("/signin")
-//   public String onSearch(@RequestParam String email,@RequestParam String password,Model model){
-//        String valid = userService.getNameByEmailAndPassword(email, password);
-//        model.addAttribute("msg",valid);
-//        return "SignIn.jsp";
-//    }
+    @PostMapping("/signin")
+    public String onSearch(@RequestParam String email,@RequestParam String password,Model model){
+      //  String valid = userService.getNameByEmailAndPassword(email, password);
+        model.addAttribute("msg","matched");
+      return "SignIn";
+  }
 }
