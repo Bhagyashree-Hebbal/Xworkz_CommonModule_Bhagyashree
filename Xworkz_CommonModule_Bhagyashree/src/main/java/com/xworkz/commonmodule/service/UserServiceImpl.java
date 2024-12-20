@@ -34,29 +34,29 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public Long countByName(String name) {
-        Long count = userRepository.countByName(name);
+    public Long getCountByName(String name) {
+        Long count = userRepository.getCountByName(name);
         return count;
     }
 
     @Override
-    public Long countByEmail(String email) {
-        return userRepository.countByEmail(email);
+    public Long getCountByEmail(String email) {
+        return userRepository.getCountByEmail(email);
     }
 
     @Override
-    public Long countByPhone(long phone) {
-        return userRepository.countByPhone(phone);
+    public Long getCountByPhone(long phone) {
+        return userRepository.getCountByPhone(phone);
     }
 
     @Override
-    public Long countByAlterEmail(String alterEmail) {
-        return userRepository.countByAlterEmail(alterEmail);
+    public Long getCountByAlterEmail(String alterEmail) {
+        return userRepository.getCountByAlterEmail(alterEmail);
     }
 
     @Override
-    public Long countByAlterPhone(long alterPhone) {
-        return userRepository.countByAlterPhone(alterPhone);
+    public Long getCountByAlterPhone(long alterPhone) {
+        return userRepository.getCountByAlterPhone(alterPhone);
     }
 
 

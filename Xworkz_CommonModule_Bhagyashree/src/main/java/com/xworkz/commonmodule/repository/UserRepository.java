@@ -7,10 +7,11 @@ public interface UserRepository {
 
    // String getNameByEmailAndPassword(String email,String password);
 
-    Long countByName(String name);
-    Long countByEmail(String email);
-    Long countByPhone(long phone);
-    Long countByAlterEmail(String alterEmail);
-    Long countByAlterPhone(long alterPhone);
+    Long getCountByName(String name);
+    Long getCountByEmail(String email);
+    Long getCountByPhone(long phone);
+    Long getCountByAlterEmail(String alterEmail);
+    Long getCountByAlterPhone(long alterPhone);
     //Long countByLocation(String location)
 }
+

@@ -11,10 +11,10 @@ import javax.persistence.*;
 @RequiredArgsConstructor
 //@NamedQuery(name="getNameByEmailAndPassword" ,query="select ue.name from UserEntity ue where ue.email = :byEmail and ue.password = :byPassword")
 @NamedQuery(name="countByName" , query ="select count(*) from UserEntity ue where ue.name = :SetName")
-@NamedQuery(name = "countByEmail", query = "select count(ue) from UserEntity ue where ue.email = :SetEmail")
-@NamedQuery(name = "countByPhone", query = "select count(ue) from UserEntity ue where ue.phone = :SetPhone")
-@NamedQuery(name = "countByAlterEmail", query = "select count(ue) from UserEntity ue where ue.alterEmail = :SetAlterEmail")
-@NamedQuery(name = "countByAlterPhone", query = "select count(ue) from UserEntity ue where ue.alterPhone = :SetAlterPhone")
+@NamedQuery(name = "countByEmail", query = "select count(*) from UserEntity ue where ue.email = :SetEmail")
+@NamedQuery(name = "countByPhone", query = "select count(*) from UserEntity ue where ue.phone = :SetPhone")
+@NamedQuery(name = "countByAlterEmail", query = "select count(*) from UserEntity ue where ue.alterEmail = :SetAlterEmail")
+@NamedQuery(name = "countByAlterPhone", query = "select count(*) from UserEntity ue where ue.alterPhone = :SetAlterPhone")
 //@NamedQuery(name = "countLocation", query = "select count(ue) from UserEntity ue where ue.location = :SetLocation")
 
 public class UserEntity {

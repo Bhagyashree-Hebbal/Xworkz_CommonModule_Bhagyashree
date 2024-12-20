@@ -57,18 +57,23 @@
             <h2 class="text-center">Sign Up</h2>
             <div class="form-group">
                 <input type="text" class="form-control" name="name" id="name" onChange="onNameChange()" placeholder="Enter your name" required>
+                <span id="userName"></span>
             </div>
             <div class="form-group">
                 <input type="email" class="form-control" name="email" id="email" onChange="onEmailChange()" placeholder="Enter your email" required>
+                <span id="userEmail"></span>
             </div>
             <div class="form-group">
                 <input type="number" class="form-control" name="phone" id="phone" onChange="onPhoneChange()" placeholder="##########" required>
+                <span id="userPhone"></span>
             </div>
             <div class="form-group">
                 <input type="email" class="form-control" name="alterEmail" id="alterEmail" onChange="onAlterEmailChange()" placeholder="Enter your alter email">
+                <span id="userAltEmail"></span>
             </div>
             <div class="form-group">
                 <input type="number" class="form-control" name="alterPhone" id="alterPhone" onChange="onAlterPhoneChange()" placeholder="##########">
+                <span id="userAltPhone"></span>
             </div>
             <div class="form-group">
                 <input type="text" class="form-control" name="location" placeholder="Enter your location">
@@ -82,43 +87,69 @@
     <script>
          function onNameChange(){
          console.log('this is on place name');
-         var name = document.getElementById('name').value;
+         var name = document.getElementById('name');
+         var nameValue = name.value;
          var xhttp = new XMLHttpRequest();
-         xhttp.open("GET","http://localhost:8080/Xworkz_CommonModule_Bhagyashree/name/" + name,true);
+         xhttp.open("GET","http://localhost:8080/Xworkz_CommonModule_Bhagyashree/name/" + nameValue);
          xhttp.send();
+
+         xhttp.onload = function(){
+         document.getElementById("userName").innerHTML = this.responseText;
+         }
          }
 
          function onEmailChange() {
          console.log('this is on place email');
-         var email = document.getElementById('email').value;
+         var email = document.getElementById('email');
+         var emailValue = email.value;
          var xhttp = new XMLHttpRequest();
-         xhttp.open("GET", "http://localhost:8080/Xworkz_CommonModule_Bhagyashree/email/" + email, true);
+         xhttp.open("GET", "http://localhost:8080/Xworkz_CommonModule_Bhagyashree/email/" + emailValue);
          xhttp.send();
+
+         xhttp.onload = function(){
+         document.getElementById("userEmail").innerHTML = this.responseText;
+         }
          }
 
          function onPhoneChange() {
          console.log('this is on place phone');
-         var phone = document.getElementById('phone').value;
+         var phone = document.getElementById('phone');
+         var phoneValue = phone.value;
          var xhttp = new XMLHttpRequest();
-         xhttp.open("GET", "http://localhost:8080/Xworkz_CommonModule_Bhagyashree/phone/" + phone, true);
+         xhttp.open("GET", "http://localhost:8080/Xworkz_CommonModule_Bhagyashree/phone/" + phoneValue);
          xhttp.send();
+
+         xhttp.onload = function(){
+         document.getElementById("userPhone").innerHTML = this.responseText;
+         }
          }
 
          function onAlterEmailChange() {
          console.log('this is on place alterEmail');
-         var alterEmail = document.getElementById('alterEmail').value;
+         var alterEmail = document.getElementById('alterEmail');
+         var alterEmailValue = alterEmail.value;
          var xhttp = new XMLHttpRequest();
-         xhttp.open("GET", "http://localhost:8080/Xworkz_CommonModule_Bhagyashree/alterEmail/" + alterEmail, true);
+         xhttp.open("GET", "http://localhost:8080/Xworkz_CommonModule_Bhagyashree/alterEmail/" + alterEmailValue);
          xhttp.send();
+
+         xhttp.onload = function(){
+         document.getElementById("userAltEmail").innerHTML = this.responseText;
+         }
          }
 
          function onAlterPhoneChange() {
          console.log('this is on place alterPhone');
-         var alterPhone = document.getElementById('alterPhone').value;
+         var alterPhone = document.getElementById('alterPhone');
+         var alterPhoneValue = alterPhone.value;
          var xhttp = new XMLHttpRequest();
-         xhttp.open("GET", "http://localhost:8080/Xworkz_CommonModule_Bhagyashree/alterPhone/" + alterPhone, true);
+         xhttp.open("GET", "http://localhost:8080/Xworkz_CommonModule_Bhagyashree/alterPhone/" + alterPhoneValue);
          xhttp.send();
+
+         xhttp.onload = function(){
+         document.getElementById("userAltPhone").innerHTML = this.responseText;
          }
+         }
+
     </script>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
