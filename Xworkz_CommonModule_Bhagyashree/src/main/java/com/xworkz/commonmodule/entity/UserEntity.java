@@ -17,6 +17,9 @@ import javax.persistence.*;
 @NamedQuery(name = "countByAlterPhone", query = "select count(*) from UserEntity ue where ue.alterPhone = :SetAlterPhone")
 //@NamedQuery(name = "countLocation", query = "select count(ue) from UserEntity ue where ue.location = :SetLocation")
 
+//@NamedQuery(name="getName", query = "Select se From SignupEntity se Where se.email= :setEmail")
+
+//@NamedQuery(name = "getValue", query = "Select se From SignupEntity se Where se.email= :byEmail")
 public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,5 +33,5 @@ public class UserEntity {
     private long alterPhone;
     private String location;
     private String password;
-
+    private int count;
 }

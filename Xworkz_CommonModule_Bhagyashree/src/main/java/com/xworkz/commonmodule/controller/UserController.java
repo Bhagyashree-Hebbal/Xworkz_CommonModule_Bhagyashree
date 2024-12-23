@@ -34,5 +34,18 @@ public class UserController {
       //  String valid = userService.getNameByEmailAndPassword(email, password);
         model.addAttribute("msg","matched");
       return "SignIn";
-  }
+    }
+
+    @PostMapping("/updatePassword")
+    public String onUpdatePassword(@RequestParam String email,@RequestParam String oldPassword,@RequestParam String newPassword,@RequestParam String confirmPassword){
+        if(!newPassword.equals(confirmPassword)){
+            return "UpdatePassword";
+        }
+        boolean isValid = userService.onUpdate(email, oldPassword, newPassword);
+        if(isValid){
+            return "SignIn";
+        }else {
+            return "UpdatePassword";
+        }
+    }
 }

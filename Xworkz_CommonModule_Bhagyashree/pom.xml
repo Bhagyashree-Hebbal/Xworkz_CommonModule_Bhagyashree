@@ -71,7 +71,6 @@
       <groupId>ch.qos.logback</groupId>
       <artifactId>logback-classic</artifactId>
       <version>1.2.3</version>
-      <scope>test</scope>
     </dependency>
 
     <!-- https://mvnrepository.com/artifact/org.slf4j/jul-to-slf4j -->

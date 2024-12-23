@@ -15,20 +15,20 @@
             background-size: cover;
             background-repeat: no-repeat;
             background-attachment: fixed;
-            height: 100vh; /* Full viewport height */
+            color: white;
             display: flex;
             justify-content: center;
             align-items: center;
-            color: white;
+            height: 100vh;
         }
 
         .signup-form {
             max-width: 500px;
             width: 100%;
             padding: 30px;
-            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+            background-color: rgba(0, 0, 0, 0.7); /* Slightly darker background */
             border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
         }
 
         .signup-form input {
@@ -37,21 +37,70 @@
 
         .signup-form button {
             width: 100%;
-            background-color: #007bff;
+            background-color: #007bff; /* Blue color for Sign Up button */
             border: none;
         }
 
         .signup-form button:hover {
-            background-color: #0056b3;
+            background-color: #0056b3; /* Darker blue on hover */
+        }
+
+        .navbar-custom {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 10px 20px;
+        }
+
+        .navbar-brand img {
+            margin-right: 10px;
         }
 
         .msg {
             text-align: center;
             margin-top: 20px;
         }
+
+        .form-group span {
+            font-size: 12px;
+            color: #ffc107; /* Warning color */
+        }
+
+        .navbar-nav .nav-link {
+            color: white !important;
+        }
+
+        .navbar-nav .nav-link.btn {
+            background-color: #28a745; /* Green color for navbar buttons */
+            border: none;
+        }
+
+        .navbar-nav .nav-link.btn:hover {
+            background-color: #218838; /* Darker green on hover */
+        }
+
+        .navbar {
+            margin-bottom: 50px; /* Add margin to prevent content overlap */
+        }
     </style>
 </head>
 <body>
+    <nav class="navbar navbar-expand-lg navbar-custom fixed-top">
+        <a class="navbar-brand" href="#">
+            <img src="https://x-workz.in/static/media/Logo.cf195593dc1b3f921369.png" width="80" height="70" alt="Xworkz Logo">
+        </a>
+        <button class="navbar-toggler text-light" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon">&#9776;</span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link btn" href="SignIn.jsp">SignIn</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link btn" href="SignUp.jsp">SignUp</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
     <div class="signup-form">
         <form action="signup" method="post">
             <h2 class="text-center">Sign Up</h2>
@@ -68,7 +117,7 @@
                 <span id="userPhone"></span>
             </div>
             <div class="form-group">
-                <input type="email" class="form-control" name="alterEmail" id="alterEmail" onChange="onAlterEmailChange()" placeholder="Enter your alter email">
+                <input type="email" class="form-control" name="alterEmail" id="alterEmail" onChange="onAlterEmailChange()" placeholder="Enter your alternate email">
                 <span id="userAltEmail"></span>
             </div>
             <div class="form-group">
@@ -78,79 +127,79 @@
             <div class="form-group">
                 <input type="text" class="form-control" name="location" placeholder="Enter your location">
             </div>
-            <button type="submit" class="btn btn-info btn-block">Sign Up</button>
+            <button type="submit" class="btn btn-primary btn-block">Sign Up</button> <!-- Blue Sign Up button -->
         </form>
         <div class="msg">
             ${msg}
         </div>
     </div>
     <script>
-         function onNameChange(){
-         console.log('this is on place name');
-         var name = document.getElementById('name');
-         var nameValue = name.value;
-         var xhttp = new XMLHttpRequest();
-         xhttp.open("GET","http://localhost:8080/Xworkz_CommonModule_Bhagyashree/name/" + nameValue);
-         xhttp.send();
+             function onNameChange(){
+             console.log('this is on place name');
+             var name = document.getElementById('name');
+             var nameValue = name.value;
+             var xhttp = new XMLHttpRequest();
+             xhttp.open("GET","http://localhost:8080/Xworkz_CommonModule_Bhagyashree/name/" + nameValue);
+             xhttp.send();
 
-         xhttp.onload = function(){
-         document.getElementById("userName").innerHTML = this.responseText;
-         }
-         }
+             xhttp.onload = function(){
+             document.getElementById("userName").innerHTML = this.responseText;
+             }
+             }
 
-         function onEmailChange() {
-         console.log('this is on place email');
-         var email = document.getElementById('email');
-         var emailValue = email.value;
-         var xhttp = new XMLHttpRequest();
-         xhttp.open("GET", "http://localhost:8080/Xworkz_CommonModule_Bhagyashree/email/" + emailValue);
-         xhttp.send();
+             function onEmailChange() {
+             console.log('this is on place email');
+             var email = document.getElementById('email');
+             var emailValue = email.value;
+             var xhttp = new XMLHttpRequest();
+             xhttp.open("GET", "http://localhost:8080/Xworkz_CommonModule_Bhagyashree/email/" + emailValue);
+             xhttp.send();
 
-         xhttp.onload = function(){
-         document.getElementById("userEmail").innerHTML = this.responseText;
-         }
-         }
+             xhttp.onload = function(){
+             document.getElementById("userEmail").innerHTML = this.responseText;
+             }
+             }
 
-         function onPhoneChange() {
-         console.log('this is on place phone');
-         var phone = document.getElementById('phone');
-         var phoneValue = phone.value;
-         var xhttp = new XMLHttpRequest();
-         xhttp.open("GET", "http://localhost:8080/Xworkz_CommonModule_Bhagyashree/phone/" + phoneValue);
-         xhttp.send();
+             function onPhoneChange() {
+             console.log('this is on place phone');
+             var phone = document.getElementById('phone');
+             var phoneValue = phone.value;
+             var xhttp = new XMLHttpRequest();
+             xhttp.open("GET", "http://localhost:8080/Xworkz_CommonModule_Bhagyashree/phone/" + phoneValue);
+             xhttp.send();
 
-         xhttp.onload = function(){
-         document.getElementById("userPhone").innerHTML = this.responseText;
-         }
-         }
+             xhttp.onload = function(){
+             document.getElementById("userPhone").innerHTML = this.responseText;
+             }
+             }
 
-         function onAlterEmailChange() {
-         console.log('this is on place alterEmail');
-         var alterEmail = document.getElementById('alterEmail');
-         var alterEmailValue = alterEmail.value;
-         var xhttp = new XMLHttpRequest();
-         xhttp.open("GET", "http://localhost:8080/Xworkz_CommonModule_Bhagyashree/alterEmail/" + alterEmailValue);
-         xhttp.send();
+             function onAlterEmailChange() {
+             console.log('this is on place alterEmail');
+             var alterEmail = document.getElementById('alterEmail');
+             var alterEmailValue = alterEmail.value;
+             var xhttp = new XMLHttpRequest();
+             xhttp.open("GET", "http://localhost:8080/Xworkz_CommonModule_Bhagyashree/alterEmail/" + alterEmailValue);
+             xhttp.send();
 
-         xhttp.onload = function(){
-         document.getElementById("userAltEmail").innerHTML = this.responseText;
-         }
-         }
+             xhttp.onload = function(){
+             document.getElementById("userAltEmail").innerHTML = this.responseText;
+             }
+             }
 
-         function onAlterPhoneChange() {
-         console.log('this is on place alterPhone');
-         var alterPhone = document.getElementById('alterPhone');
-         var alterPhoneValue = alterPhone.value;
-         var xhttp = new XMLHttpRequest();
-         xhttp.open("GET", "http://localhost:8080/Xworkz_CommonModule_Bhagyashree/alterPhone/" + alterPhoneValue);
-         xhttp.send();
+             function onAlterPhoneChange() {
+             console.log('this is on place alterPhone');
+             var alterPhone = document.getElementById('alterPhone');
+             var alterPhoneValue = alterPhone.value;
+             var xhttp = new XMLHttpRequest();
+             xhttp.open("GET", "http://localhost:8080/Xworkz_CommonModule_Bhagyashree/alterPhone/" + alterPhoneValue);
+             xhttp.send();
 
-         xhttp.onload = function(){
-         document.getElementById("userAltPhone").innerHTML = this.responseText;
-         }
-         }
+             xhttp.onload = function(){
+             document.getElementById("userAltPhone").innerHTML = this.responseText;
+             }
+             }
 
-    </script>
+        </script>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>

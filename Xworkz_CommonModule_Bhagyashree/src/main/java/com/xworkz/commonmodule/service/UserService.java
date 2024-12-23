@@ -6,7 +6,7 @@ import com.xworkz.commonmodule.entity.UserEntity;
 public interface UserService {
     boolean save(UserDTO userDTO);
 
-    //String getNameByEmailAndPassword(String email,String password);
+    String getNameByEmailAndPassword(String email,String password);
 
     Long getCountByName(String name);
     Long getCountByEmail(String email);
@@ -15,4 +15,7 @@ public interface UserService {
     Long getCountByAlterPhone(long alterPhone);
     //Long countByLocation(String location);
 
+    //public String onSignin(String email, String password);
+
+    public boolean onUpdate(String email, String oldPassword, String newPassword);
 }

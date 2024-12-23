@@ -4,12 +4,16 @@ import com.xworkz.commonmodule.dto.UserDTO;
 import com.xworkz.commonmodule.entity.UserEntity;
 import com.xworkz.commonmodule.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Random;
 
 @Service
 public class UserServiceImpl implements UserService{
+    @Autowired
+    private UserRepository repository;
+    private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     @Autowired
     UserRepository userRepository;
@@ -28,9 +32,15 @@ public class UserServiceImpl implements UserService{
         entity.setAlterPhone(userDTO.getAlterPhone());
         entity.setLocation(userDTO.getLocation());
         entity.setPassword(password);
+        entity.setCount(-1);
         System.out.println("values"+entity.toString());
         boolean saved=userRepository.save(entity);
         return true;
+    }
+
+    @Override
+    public String getNameByEmailAndPassword(String email, String password) {
+        return userRepository.getNameByEmailAndPassword(email, password);
     }
 
     @Override
@@ -57,6 +67,37 @@ public class UserServiceImpl implements UserService{
     @Override
     public Long getCountByAlterPhone(long alterPhone) {
         return userRepository.getCountByAlterPhone(alterPhone);
+    }
+
+//    @Override
+//    public String onSignin(String email, String password) {
+//        System.out.println("running onSignin in userServiceImpl");
+//        UserEntity entity = userRepository.;
+//        if(entity ! =nul){
+//            if(encoderPassword.matches(password,entity.getPassword())){
+//                return entity.getName();
+//            }
+//            return null;
+//        }
+//        return null;
+//    }
+
+    @Override
+    public boolean onUpdate(String email,String oldPassword, String newPassword) {
+        System.out.println("SERVICE :on update method : " + email);
+        UserEntity entity = userRepository.findByEmail(email);
+            if (entity != null) {
+                if(entity.getPassword().equals(oldPassword)){
+                    String encryptedPassword = passwordEncoder.encode(newPassword);
+
+                    entity.setPassword(encryptedPassword);
+                    entity.setCount(0);
+
+                    return userRepository.update(entity);
+            }
+            return false;
+        }
+        return false;
     }
 
 
