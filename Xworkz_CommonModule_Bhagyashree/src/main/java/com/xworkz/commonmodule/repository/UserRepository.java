@@ -2,26 +2,21 @@ package com.xworkz.commonmodule.repository;
 
 import com.xworkz.commonmodule.entity.UserEntity;
 
+import java.util.List;
+
 public interface UserRepository {
     boolean save(UserEntity userEntity);
 
-    String getNameByEmailAndPassword(String email,String password);
-
+    UserEntity getNameByEmailAndPassword(String email,String password);
+    List<UserEntity> getAll(String email, String password);
     Long getCountByName(String name);
     Long getCountByEmail(String email);
     Long getCountByPhone(long phone);
     Long getCountByAlterEmail(String alterEmail);
     Long getCountByAlterPhone(long alterPhone);
-    //Long countByLocation(String location)
 
-//    public UserEntity onSignin(String email);
-//
-//    public UserEntity getData(String email);
-//
-//    public boolean onUpdate(UserEntity entity);
-
-    boolean update(UserEntity entity);
-    UserEntity findByEmail(String email);
+    String updatePasswordByName(String newPassword,String name);
+    UserEntity findByName(String name);
 
 }
 

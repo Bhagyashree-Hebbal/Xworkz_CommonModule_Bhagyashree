@@ -1,8 +1,5 @@
 package com.xworkz.commonmodule.configuration;
 
-
-
-
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -24,8 +21,6 @@ import javax.sql.DataSource;
 @EnableWebMvc
 @Slf4j
 public class WebConfiguration {
-
-
 
     WebConfiguration(){
         System.out.println("no-arg const WebConfiguration");

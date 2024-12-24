@@ -1,3 +1,4 @@
+<%@page isELIgnored = "false"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -51,13 +52,12 @@
     </style>
 </head>
 <body>
+  <c:set var="userName" value="${userName}" />
     <div class="update-password-form">
         <h2>Update Password</h2>
-        <form action="updatePassword" method="post">
-            <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" name="email" id="userEmail" class="form-control" placeholder="Enter your email" required>
-            </div>
+        <form action="http://localhost:8080/Xworkz_CommonModule_Bhagyashree/setPasswordController/updatePassword" method="post">
+        <input type="hidden" name="name" value="${userName}">
+
             <div class="form-group">
                 <label for="oldPassword">Old Password</label>
                 <input type="password" name="oldPassword" id="oldPassword" class="form-control" placeholder="Enter your old password" required>

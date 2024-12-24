@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Random;
 
 @Service
@@ -21,84 +23,81 @@ public class UserServiceImpl implements UserService{
     @Override
     public boolean save(UserDTO userDTO) {
 
-            System.out.println("rinning in service implementation");
+        System.out.println("running in service implementation");
 
-        String password =generateRandomPassword();
-        UserEntity entity=new UserEntity();
+        String password = null;
+        UserEntity entity = new UserEntity();
         entity.setName(userDTO.getName());
         entity.setEmail(userDTO.getEmail());
         entity.setPhone(userDTO.getPhone());
         entity.setAlterEmail(userDTO.getAlterEmail());
         entity.setAlterPhone(userDTO.getAlterPhone());
         entity.setLocation(userDTO.getLocation());
-        entity.setPassword(password);
-        entity.setCount(-1);
-        System.out.println("values"+entity.toString());
-        boolean saved=userRepository.save(entity);
-        return true;
-    }
-
-    @Override
-    public String getNameByEmailAndPassword(String email, String password) {
-        return userRepository.getNameByEmailAndPassword(email, password);
-    }
-
-    @Override
-    public Long getCountByName(String name) {
-        Long count = userRepository.getCountByName(name);
-        return count;
-    }
-
-    @Override
-    public Long getCountByEmail(String email) {
-        return userRepository.getCountByEmail(email);
-    }
-
-    @Override
-    public Long getCountByPhone(long phone) {
-        return userRepository.getCountByPhone(phone);
-    }
-
-    @Override
-    public Long getCountByAlterEmail(String alterEmail) {
-        return userRepository.getCountByAlterEmail(alterEmail);
-    }
-
-    @Override
-    public Long getCountByAlterPhone(long alterPhone) {
-        return userRepository.getCountByAlterPhone(alterPhone);
-    }
-
-//    @Override
-//    public String onSignin(String email, String password) {
-//        System.out.println("running onSignin in userServiceImpl");
-//        UserEntity entity = userRepository.;
-//        if(entity ! =nul){
-//            if(encoderPassword.matches(password,entity.getPassword())){
-//                return entity.getName();
-//            }
-//            return null;
-//        }
-//        return null;
-//    }
-
-    @Override
-    public boolean onUpdate(String email,String oldPassword, String newPassword) {
-        System.out.println("SERVICE :on update method : " + email);
-        UserEntity entity = userRepository.findByEmail(email);
-            if (entity != null) {
-                if(entity.getPassword().equals(oldPassword)){
-                    String encryptedPassword = passwordEncoder.encode(newPassword);
-
-                    entity.setPassword(encryptedPassword);
-                    entity.setCount(0);
-
-                    return userRepository.update(entity);
-            }
+        int count = -1;
+        if (entity.getEmail() != null) {
+            password = generateRandomPassword();
+            entity.setPassword(password);
+            entity.setCount(count);
+        }
+        // System.out.println("values" + entity.toString());
+        boolean saved = userRepository.save(entity);
+        if (saved) {
+            return true;
+        } else {
             return false;
         }
-        return false;
     }
+
+        @Override
+        public UserEntity getNameByEmailAndPassword (String email, String password){
+            return userRepository.getNameByEmailAndPassword(email, password);
+        }
+
+        @Override
+        public List<UserEntity> getAll (String email, String password){
+            List<UserEntity> list = userRepository.getAll(email, password);
+            if (list != null) {
+                return list;
+            }
+            return null;
+        }
+
+        @Override
+        public Long getCountByName (String name){
+            Long count = userRepository.getCountByName(name);
+            return count;
+        }
+
+        @Override
+        public Long getCountByEmail (String email){
+            return userRepository.getCountByEmail(email);
+        }
+
+        @Override
+        public Long getCountByPhone ( long phone){
+            return userRepository.getCountByPhone(phone);
+        }
+
+        @Override
+        public Long getCountByAlterEmail (String alterEmail){
+            return userRepository.getCountByAlterEmail(alterEmail);
+        }
+
+        @Override
+        public Long getCountByAlterPhone ( long alterPhone){
+            return userRepository.getCountByAlterPhone(alterPhone);
+        }
+
+        @Override
+        public String updatePasswordByName (String newPassword, String confirmPassword, String name){
+
+            if (newPassword.equals(confirmPassword)) {
+                //String encodedNewPassword = passwordEncoder.encode(newPassword);
+                String msg = userRepository.updatePasswordByName(newPassword, name);
+            }
+            return "password updated successfully";
+        }
+
 
 
     public static String generateRandomPassword() {

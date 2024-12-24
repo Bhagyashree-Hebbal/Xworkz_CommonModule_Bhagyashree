@@ -106,7 +106,7 @@
             <h2 class="text-center">Sign Up</h2>
             <div class="form-group">
                 <input type="text" class="form-control" name="name" id="name" onChange="onNameChange()" placeholder="Enter your name" required>
-                <span id="userName"></span>
+                <span id="userName" style="color: yellow;"></span>
             </div>
             <div class="form-group">
                 <input type="email" class="form-control" name="email" id="email" onChange="onEmailChange()" placeholder="Enter your email" required>
