@@ -4,18 +4,21 @@ import com.xworkz.commonmodule.dto.UserDTO;
 import com.xworkz.commonmodule.entity.UserEntity;
 import com.xworkz.commonmodule.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
+import javax.mail.*;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import java.util.List;
+import java.util.Properties;
 import java.util.Random;
 
 @Service
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
     @Autowired
-    private UserRepository repository;
-    private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+    UserRepository repository;
+    PasswordEncoder passwordEncoder;
 
     @Autowired
     UserRepository userRepository;
@@ -40,65 +43,98 @@ public class UserServiceImpl implements UserService{
             entity.setCount(count);
         }
         // System.out.println("values" + entity.toString());
-        boolean saved = userRepository.save(entity);
+           boolean saved = userRepository.save(entity);
         if (saved) {
+            saveEmail(userDTO.getEmail(),password);
             return true;
         } else {
             return false;
         }
+
     }
 
-        @Override
-        public UserEntity getNameByEmailAndPassword (String email, String password){
-            return userRepository.getNameByEmailAndPassword(email, password);
+    @Override
+    public UserEntity getNameByEmailAndPassword(String email, String password) {
+        return userRepository.getNameByEmailAndPassword(email, password);
+    }
+
+    @Override
+    public List<UserEntity> getAll(String email, String password) {
+        List<UserEntity> list = userRepository.getAll(email, password);
+        if (list != null) {
+            return list;
         }
+        return null;
+    }
 
-        @Override
-        public List<UserEntity> getAll (String email, String password){
-            List<UserEntity> list = userRepository.getAll(email, password);
-            if (list != null) {
-                return list;
-            }
-            return null;
-        }
+    @Override
+    public Long getCountByName(String name) {
+        Long count = userRepository.getCountByName(name);
+        return count;
+    }
 
-        @Override
-        public Long getCountByName (String name){
-            Long count = userRepository.getCountByName(name);
-            return count;
-        }
+    @Override
+    public Long getCountByEmail(String email) {
+        return userRepository.getCountByEmail(email);
+    }
 
-        @Override
-        public Long getCountByEmail (String email){
-            return userRepository.getCountByEmail(email);
-        }
+    @Override
+    public Long getCountByPhone(long phone) {
+        return userRepository.getCountByPhone(phone);
+    }
 
-        @Override
-        public Long getCountByPhone ( long phone){
-            return userRepository.getCountByPhone(phone);
-        }
+    @Override
+    public Long getCountByAlterEmail(String alterEmail) {
+        return userRepository.getCountByAlterEmail(alterEmail);
+    }
 
-        @Override
-        public Long getCountByAlterEmail (String alterEmail){
-            return userRepository.getCountByAlterEmail(alterEmail);
-        }
+    @Override
+    public Long getCountByAlterPhone(long alterPhone) {
+        return userRepository.getCountByAlterPhone(alterPhone);
+    }
 
-        @Override
-        public Long getCountByAlterPhone ( long alterPhone){
-            return userRepository.getCountByAlterPhone(alterPhone);
-        }
+    @Override
+    public String updatePasswordByName(String name,String oldPassword,String newPassword, String confirmPassword) {
 
-        @Override
-        public String updatePasswordByName (String newPassword, String confirmPassword, String name){
-
+        String msg=null;
+        UserEntity entity=userRepository.getByNamePassword(name,oldPassword);
+        if(entity!=null) {
             if (newPassword.equals(confirmPassword)) {
-                //String encodedNewPassword = passwordEncoder.encode(newPassword);
-                String msg = userRepository.updatePasswordByName(newPassword, name);
+
+                msg = userRepository.updatePasswordByName(newPassword, name);
+                return msg;
             }
-            return "password updated successfully";
         }
+        return null;
+    }
 
+    @Override
+    public UserEntity getEmail(String email, String password) {
+        UserEntity entity = userRepository.getEmail(email);
+        if (entity != null) {
+            System.out.println(entity.toString());
+            if (password.equals(entity.getPassword()) && entity.getCount() == -1) {
+                System.out.println("matches");
+                return entity;
+            } else if (!(password.equals(entity.getPassword())) && (entity.getCount() >= 0 && entity.getCount() < 3)) {
 
+                repository.updateCount(email, entity.getCount());
+                System.out.println("password entered is wrong");
+                return null;
+
+            } else if (!(password.equals(entity.getPassword())) && entity.getCount() == 3) {
+                System.out.println("locked");
+                return null;
+            } else if (password.equals(entity.getPassword()) && (entity.getCount() < 3 && entity.getCount() > -1)) {
+                boolean reset = repository.resetCount(email, entity.getCount());
+                if (reset)
+                    return entity;
+                else
+                    return null;
+            }
+        }
+        return null;
+    }
 
     public static String generateRandomPassword() {
         String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -113,4 +149,46 @@ public class UserServiceImpl implements UserService{
         return password.toString();
     }
 
+    @Override
+    public boolean saveEmail(String email, String password) {
+
+        System.out.println(email + password);
+        final String username ="hebbalbhagya304@gmail.com";
+        final String userPassword = "ukxf fmhi hjte qaes";
+
+        Properties prop = new Properties();
+        prop.put("mail.smtp.host", "smtp.gmail.com");
+        prop.put("mail.smtp.port", "587");
+        prop.put("mail.smtp.auth", "true");
+        prop.put("mail.smtp.starttls.enable", "true"); //TLS
+        prop.put("mail.smtp.ssl.trust", "smtp.gmail.com");
+        System.out.println("=================================================");
+        Session session = Session.getInstance(prop,
+                new javax.mail.Authenticator() {
+                    protected PasswordAuthentication getPasswordAuthentication() {
+                        return new PasswordAuthentication(username, userPassword);
+                    }
+                });
+
+        try {
+
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(username));
+            message.setRecipients(
+                    Message.RecipientType.TO,
+                    InternetAddress.parse(email)
+            );
+            message.setSubject("Your password");
+            message.setText("your password : "+password);
+
+            Transport.send(message);
+
+            System.out.println("Done");
+
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
+
+        return true;
+    }
 }

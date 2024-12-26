@@ -17,6 +17,13 @@ public interface UserRepository {
 
     String updatePasswordByName(String newPassword,String name);
     UserEntity findByName(String name);
+    UserEntity getEmail(String email);
+
+    boolean updatePasswordAndCount(String name,String confirmPassword,int count);
+    void updateCount(String email,int count);
+    boolean resetCount(String email,int count);
+
+    UserEntity getByNamePassword(String name,String password);
 
 }
 

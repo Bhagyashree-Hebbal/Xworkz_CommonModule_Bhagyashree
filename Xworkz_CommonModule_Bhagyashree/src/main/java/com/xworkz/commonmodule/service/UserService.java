@@ -16,5 +16,9 @@ public interface UserService {
     Long getCountByAlterEmail(String alterEmail);
     Long getCountByAlterPhone(long alterPhone);
 
-    public String updatePasswordByName(String name, String oldPassword, String newPassword);
+    String updatePasswordByName(String name, String oldPassword, String newPassword,String confirmPassword);
+    UserEntity getEmail(String email,String password);
+
+    boolean saveEmail(String email,String password);
+
 }

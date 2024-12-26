@@ -4,7 +4,6 @@ import com.xworkz.commonmodule.dto.UserDTO;
 import com.xworkz.commonmodule.entity.UserEntity;
 import com.xworkz.commonmodule.service.UserService;
 import lombok.extern.slf4j.Slf4j;
-import lombok.extern.slf4j.XSlf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,37 +30,37 @@ public class UserController {
         System.out.println("running in service ");
         System.out.println(userDTO);
         boolean saved=userService.save(userDTO);
-       // model.addAttribute("msg","SignUp Success");
-        //return "SignUp";
         if(saved){
+            model.addAttribute("msg","SignUp Success");
             return "Success";
         }else{
+            model.addAttribute("msg","SignUp Failed");
             return "SignUp";
         }
     }
 
     @PostMapping("/signin")
     public String onSearch(@RequestParam String email,@RequestParam String password,Model model){
-        log.info(email + " " +password);
-        List<UserEntity> list = userService.getAll(email, password);
-        int count=0;
-        String userName = null;
-        for (UserEntity data : list){
-            count = data.getCount();
-            log.info("data.getCount()="+data.getCount());
-            userName = data.getName();
-        }
+        System.out.println(email + " " +password);
+        UserEntity userEntity = userService.getEmail(email, password);
 
-        log.info("valid=="+count);
-        if(count == -1){
-            model.addAttribute("userName",userName);
-            model.addAttribute("msg","Not Matched");
-            return "UpdatePassword";
-        }else{
+        if(userEntity != null) {
+            int count=userEntity.getCount();
+            System.out.println(count);
 
-            model.addAttribute("msg","Matched");
-            return "Success";
+            if(count==-1)
+            {
+                String name=userEntity.getName();
+
+                model.addAttribute("userName",name);
+                return "UpdatePassword";
+            }
+            else
+            {
+                return "Success";
+            }
         }
+        return "SignIn";
 
     }
 

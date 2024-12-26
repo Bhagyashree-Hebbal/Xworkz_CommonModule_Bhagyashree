@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-@RequestMapping("/setPasswordController")
+@RequestMapping("setPasswordController")
 @Slf4j
 public class UpdatePasswordController {
     @Autowired
@@ -18,17 +18,17 @@ public class UpdatePasswordController {
     @PostMapping("/updatePassword")
     public String setNewPassword(@RequestParam String oldPassword, @RequestParam String newPassword, @RequestParam String confirmPassword, @RequestParam String name) {
 
-        log.info("userName==" + name);
-        log.info("oldPassword==" + newPassword);
+        log.info("name==" + name);
+        log.info("newPassword==" + newPassword);
         log.info("confirmPassword==" + confirmPassword);
 
-        String msg = userService.updatePasswordByName(newPassword, confirmPassword,name);
+        String msg = userService.updatePasswordByName(name,oldPassword,newPassword, confirmPassword);
 
         if ("password updated successfully".equals(msg)) {
             return "Success";
         }
         else {
-            return "index";
+            return "SignIn";
         }
 
     }
