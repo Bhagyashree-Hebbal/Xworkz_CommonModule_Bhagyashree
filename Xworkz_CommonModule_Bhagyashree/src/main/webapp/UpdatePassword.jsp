@@ -1,4 +1,5 @@
 <%@page isELIgnored = "false"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -52,6 +53,7 @@
     </style>
 </head>
 <body>
+
   <c:set var="userName" value="${userName}" />
     <div class="update-password-form">
         <h2>Update Password</h2>

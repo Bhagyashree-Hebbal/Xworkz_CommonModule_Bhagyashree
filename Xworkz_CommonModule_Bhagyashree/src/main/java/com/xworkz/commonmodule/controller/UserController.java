@@ -11,7 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.List;
+import javax.validation.ConstraintViolation;
+import java.util.Set;
 
 @Controller
 @RequestMapping("/")
@@ -29,12 +30,12 @@ public class UserController {
     public String onSave(UserDTO userDTO, Model model){
         System.out.println("running in service ");
         System.out.println(userDTO);
-        boolean saved=userService.save(userDTO);
-        if(saved){
+        Set<ConstraintViolation<UserDTO>> constraintViolations=userService.save(userDTO);
+        if(constraintViolations.isEmpty()){
             model.addAttribute("msg","SignUp Success");
             return "Success";
         }else{
-            model.addAttribute("msg","SignUp Failed");
+            model.addAttribute("error",constraintViolations);
             return "SignUp";
         }
     }

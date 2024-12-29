@@ -3,10 +3,12 @@ package com.xworkz.commonmodule.service;
 import com.xworkz.commonmodule.dto.UserDTO;
 import com.xworkz.commonmodule.entity.UserEntity;
 
+import javax.validation.ConstraintViolation;
 import java.util.List;
+import java.util.Set;
 
 public interface UserService {
-    boolean save(UserDTO userDTO);
+    Set<ConstraintViolation<UserDTO>> save(UserDTO userDTO);
 
     UserEntity getNameByEmailAndPassword(String email,String password);
     List<UserEntity> getAll(String email,String password);

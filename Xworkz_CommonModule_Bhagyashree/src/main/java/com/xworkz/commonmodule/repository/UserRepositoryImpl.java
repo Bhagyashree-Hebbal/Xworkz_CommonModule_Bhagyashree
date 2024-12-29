@@ -328,8 +328,6 @@ public class UserRepositoryImpl implements UserRepository {
         } finally {
             em.close();
         }
-
-
         return entity;
     }
 }

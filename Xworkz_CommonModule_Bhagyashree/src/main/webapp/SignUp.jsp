@@ -1,4 +1,5 @@
 <%@page isELIgnored = "false"%>
+ <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -102,27 +103,31 @@
         </div>
     </nav>
     <div class="signup-form">
+<c:forEach items="${error}" var="i">
+    <span style="color:red">${i.message}</span>
+</c:forEach>
+
         <form action="signup" method="post">
             <h2 class="text-center">Sign Up</h2>
             <div class="form-group">
-                <input type="text" class="form-control" name="name" id="name" onChange="onNameChange()" placeholder="Enter your name" required>
-                <span id="userName" style="color: yellow;"></span>
+                <input type="text" class="form-control" name="name" id="name" onChange="onNameChange()" placeholder="Enter your name" >
+                <span id="userName" style="color: red;"></span>
             </div>
             <div class="form-group">
-                <input type="email" class="form-control" name="email" id="email" onChange="onEmailChange()" placeholder="Enter your email" required>
-                <span id="userEmail"></span>
+                <input type="text" class="form-control" name="email" id="email" onChange="onEmailChange()" placeholder="Enter your email" >
+                <span id="userEmail" style="color: red;"></span>
             </div>
             <div class="form-group">
-                <input type="number" class="form-control" name="phone" id="phone" onChange="onPhoneChange()" placeholder="##########" required>
-                <span id="userPhone"></span>
+                <input type="text" class="form-control" name="phone" id="phone" onChange="onPhoneChange()" placeholder="##########" >
+                <span id="userPhone" style="color: red;"></span>
             </div>
             <div class="form-group">
-                <input type="email" class="form-control" name="alterEmail" id="alterEmail" onChange="onAlterEmailChange()" placeholder="Enter your alternate email">
-                <span id="userAltEmail"></span>
+                <input type="text" class="form-control" name="alterEmail" id="alterEmail" onChange="onAlterEmailChange()" placeholder="Enter your alternate email">
+                <span id="userAltEmail" style="color: red;"></span>
             </div>
             <div class="form-group">
-                <input type="number" class="form-control" name="alterPhone" id="alterPhone" onChange="onAlterPhoneChange()" placeholder="##########">
-                <span id="userAltPhone"></span>
+                <input type="text" class="form-control" name="alterPhone" id="alterPhone" onChange="onAlterPhoneChange()" placeholder="##########">
+                <span id="userAltPhone" style="color: red;"></span>
             </div>
             <div class="form-group">
                 <input type="text" class="form-control" name="location" placeholder="Enter your location">
@@ -138,6 +143,14 @@
              console.log('this is on place name');
              var name = document.getElementById('name');
              var nameValue = name.value;
+
+             if (nameValue.trim().length < 4){
+                 document.getElementById("userName").innerHTML = "Name must be at least 4 characters long.";
+                 return;
+             }else {
+                 document.getElementById("userName").innerHTML = "";
+             }
+
              var xhttp = new XMLHttpRequest();
              xhttp.open("GET","http://localhost:8080/Xworkz_CommonModule_Bhagyashree/name/" + nameValue);
              xhttp.send();
@@ -147,10 +160,22 @@
              }
              }
 
+
+
              function onEmailChange() {
              console.log('this is on place email');
              var email = document.getElementById('email');
              var emailValue = email.value;
+
+             if (!emailValue.includes('@gmail.com') && !emailValue.includes('@yahoo.com') && !emailValue.includes('@outlook.com') && !emailValue.includes('@hotmail.com') && !emailValue.includes('.edu')
+                   && !emailValue.includes('.org') && !emailValue.includes('.info') && !emailValue.includes('.net'))
+                   {
+                 document.getElementById("userEmail").innerHTML = "Enter a valid email address.";
+                 return;
+             }else {
+                 document.getElementById("userEmail").innerHTML = "";
+             }
+
              var xhttp = new XMLHttpRequest();
              xhttp.open("GET", "http://localhost:8080/Xworkz_CommonModule_Bhagyashree/email/" + emailValue);
              xhttp.send();
@@ -160,10 +185,22 @@
              }
              }
 
+
+
              function onPhoneChange() {
              console.log('this is on place phone');
              var phone = document.getElementById('phone');
              var phoneValue = phone.value;
+
+             if (phoneValue.trim().length !== 10 || (!phoneValue.startsWith("6") && !phoneValue.startsWith("7")
+               && !phoneValue.startsWith("8") && !phoneValue.startsWith("9")))
+               {
+                 document.getElementById("userPhone").innerHTML = "Phone number must contain 10 digits and should be valid.";
+                 return;
+             }else {
+                 document.getElementById("userPhone").innerHTML = "";
+             }
+
              var xhttp = new XMLHttpRequest();
              xhttp.open("GET", "http://localhost:8080/Xworkz_CommonModule_Bhagyashree/phone/" + phoneValue);
              xhttp.send();
@@ -173,10 +210,22 @@
              }
              }
 
+
+
              function onAlterEmailChange() {
              console.log('this is on place alterEmail');
              var alterEmail = document.getElementById('alterEmail');
              var alterEmailValue = alterEmail.value;
+
+             if (!alterEmailValue.includes('@gmail.com') && !alterEmailValue.includes('@yahoo.com') && !alterEmailValue.includes('@outlook.com') && !alterEmailValue.includes('@hotmail.com')
+                 && !alterEmailValue.includes('.edu') && !alterEmailValue.includes('.org') && !alterEmailValue.includes('.info') && !alterEmailValue.includes('.net'))
+                 {
+                   document.getElementById("userAltEmail").innerHTML = "Enter a valid alter email address.";
+                   return;
+             }else {
+                   document.getElementById("userAltEmail").innerHTML = "";
+             }
+
              var xhttp = new XMLHttpRequest();
              xhttp.open("GET", "http://localhost:8080/Xworkz_CommonModule_Bhagyashree/alterEmail/" + alterEmailValue);
              xhttp.send();
@@ -186,10 +235,22 @@
              }
              }
 
+
+
              function onAlterPhoneChange() {
              console.log('this is on place alterPhone');
              var alterPhone = document.getElementById('alterPhone');
              var alterPhoneValue = alterPhone.value;
+
+             if (alterPhoneValue.trim().length !== 10 || (!alterPhoneValue.startsWith("6") && !alterPhoneValue.startsWith("7")
+                 && !alterPhoneValue.startsWith("8") && !alterPhoneValue.startsWith("9")))
+                  {
+                     document.getElementById("userAltPhone").innerHTML = "Enter alter phone number must contain 10 digits and should be valid.";
+                     return;
+             }else {
+                     document.getElementById("userAltPhone").innerHTML = "";
+             }
+
              var xhttp = new XMLHttpRequest();
              xhttp.open("GET", "http://localhost:8080/Xworkz_CommonModule_Bhagyashree/alterPhone/" + alterPhoneValue);
              xhttp.send();

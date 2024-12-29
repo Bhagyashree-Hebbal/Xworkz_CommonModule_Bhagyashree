@@ -10,9 +10,14 @@ import org.springframework.stereotype.Service;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 import java.util.List;
 import java.util.Properties;
 import java.util.Random;
+import java.util.Set;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -24,7 +29,7 @@ public class UserServiceImpl implements UserService {
     UserRepository userRepository;
 
     @Override
-    public boolean save(UserDTO userDTO) {
+    public Set<ConstraintViolation<UserDTO>> save(UserDTO userDTO) {
 
         System.out.println("running in service implementation");
 
@@ -43,14 +48,17 @@ public class UserServiceImpl implements UserService {
             entity.setCount(count);
         }
         // System.out.println("values" + entity.toString());
-           boolean saved = userRepository.save(entity);
-        if (saved) {
-            saveEmail(userDTO.getEmail(),password);
-            return true;
-        } else {
-            return false;
-        }
+        ValidatorFactory vf= Validation.buildDefaultValidatorFactory();
+        Validator validator=vf.getValidator();
+        Set<ConstraintViolation<UserDTO>> set=validator.validate(userDTO);
+if(set.isEmpty()) {
+    boolean saved = userRepository.save(entity);
+    if (saved) {
+        saveEmail(userDTO.getEmail(), password);
 
+    }
+}
+return set;
     }
 
     @Override
