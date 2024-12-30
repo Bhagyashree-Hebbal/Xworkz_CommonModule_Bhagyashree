@@ -32,7 +32,6 @@ public class UserServiceImpl implements UserService {
     public Set<ConstraintViolation<UserDTO>> save(UserDTO userDTO) {
 
         System.out.println("running in service implementation");
-
         String password = null;
         UserEntity entity = new UserEntity();
         entity.setName(userDTO.getName());
@@ -41,6 +40,11 @@ public class UserServiceImpl implements UserService {
         entity.setAlterEmail(userDTO.getAlterEmail());
         entity.setAlterPhone(userDTO.getAlterPhone());
         entity.setLocation(userDTO.getLocation());
+
+        entity.setCreatedBy(userDTO.getName());
+        entity.setUpdatedBy(userDTO.getName());
+        entity.getCreatedDate();
+        entity.getUpdatedDate();
         int count = -1;
         if (entity.getEmail() != null) {
             password = generateRandomPassword();
