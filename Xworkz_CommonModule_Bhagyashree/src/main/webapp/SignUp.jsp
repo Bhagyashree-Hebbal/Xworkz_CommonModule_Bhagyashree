@@ -130,7 +130,13 @@
                 <span id="userAltPhone" style="color: red;"></span>
             </div>
             <div class="form-group">
-                <input type="text" class="form-control" name="location" placeholder="Enter your location">
+
+                <select id="location" name="location">
+                <option value = "">Select the option</option>
+                <c:forEach items="${listoflocation}" var="location">
+                    <option value = "${location}">${location}</option>
+                </c:forEach>
+                </select>
             </div>
             <button type="submit" class="btn btn-primary btn-block">Sign Up</button> <!-- Blue Sign Up button -->
         </form>

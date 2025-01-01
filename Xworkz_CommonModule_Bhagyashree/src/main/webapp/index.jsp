@@ -87,7 +87,7 @@
                     <a class="nav-link btn btn-success" href="SignIn.jsp">SignIn</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link btn btn-success" href="SignUp.jsp">SignUp</a>
+                    <a class="nav-link btn btn-success" href="sup">SignUp</a>
                 </li>
             </ul>
         </div>
