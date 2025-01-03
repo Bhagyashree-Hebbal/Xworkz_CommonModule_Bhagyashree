@@ -8,10 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.ConstraintViolation;
 import java.util.ArrayList;
@@ -27,8 +24,6 @@ public class UserController {
     @Autowired
     public UserService userService;
 
-    private List<LocationEnum> listoflocation = new ArrayList<>(Arrays.asList(LocationEnum.values()));
-
     UserController(){
         System.out.println("No-arg const in UserController");
     }
@@ -36,11 +31,24 @@ public class UserController {
     @GetMapping("/sup")
     public String onSignUp(Model model)
     {
+        List<LocationEnum> listoflocation = new ArrayList<>(Arrays.asList(LocationEnum.values()));
         listoflocation.forEach(n-> System.out.println(n));
         model.addAttribute("listoflocation",listoflocation);
         return "SignUp";
     }
 
+    @GetMapping("/update")
+    public String onUpdateProfile(@RequestParam(required = false) String name, Model model)
+    {
+        System.out.println(name);
+        List<LocationEnum> listoflocation = new ArrayList<>(Arrays.asList(LocationEnum.values()));
+       listoflocation.forEach(n-> System.out.println(n));
+        System.out.println(name);
+       model.addAttribute("userName",name);
+       model.addAttribute("listoflocation",listoflocation);
+
+        return "UpdateProfile";
+    }
 
     @PostMapping("/signup")
     public String onSave(UserDTO userDTO, Model model){
@@ -57,7 +65,7 @@ public class UserController {
     }
 
     @PostMapping("/signin")
-    public String onSearch(@RequestParam String email,@RequestParam String password,Model model){
+    public String onSearch(@RequestParam String email, @RequestParam String password, Model model) {
         System.out.println(email + " " +password);
         UserEntity userEntity = userService.getEmail(email, password);
 
@@ -68,17 +76,32 @@ public class UserController {
             if(count==-1)
             {
                 String name=userEntity.getName();
-
                 model.addAttribute("userName",name);
                 return "UpdatePassword";
             }
             else
             {
+                String name=userEntity.getName();
+                model.addAttribute("userName",name);
                 return "Success";
             }
         }
         return "SignIn";
 
     }
+
+
+    @PostMapping("/updateProfile")
+    public String onUpdating(@RequestParam String name, UserDTO userDTO, Model model) {
+        System.out.println(name);
+        Set<ConstraintViolation<UserDTO>> set = userService.updateDetails(name, userDTO);
+        if (set.isEmpty()) {
+            // Add the name to the model to pass it to the Success page
+            model.addAttribute("userName", name);
+            return "Success";
+        }
+        return "UpdateProfile";
+    }
+
 
 }

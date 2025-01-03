@@ -1,3 +1,4 @@
+<%@page isELIgnored = "false"%>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -50,10 +51,11 @@
   <div class="container">
     <h2 class="success-message">Success!</h2>
     <p class="lead">Your action was successful. Thank you for your submission!</p>
-
+    <form action="update" method="get">
+<input type="text" name="name" value="${userName}" />
+    <input type="submit" value="Update Profile">
+    </form>
   </div>
-
-<a href="AnotherPage.jsp">SignUp</a>
   <!-- Bootstrap JS and dependencies -->
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>

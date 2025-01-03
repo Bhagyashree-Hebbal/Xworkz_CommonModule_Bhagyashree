@@ -1,5 +1,6 @@
 package com.xworkz.commonmodule.repository;
 
+import com.xworkz.commonmodule.dto.UserDTO;
 import com.xworkz.commonmodule.entity.UserEntity;
 
 import java.util.List;
@@ -16,7 +17,7 @@ public interface UserRepository {
     Long getCountByAlterPhone(long alterPhone);
 
     String updatePasswordByName(String newPassword,String name);
-    UserEntity findByName(String name);
+
     UserEntity getEmail(String email);
 
     boolean updatePasswordAndCount(String name,String confirmPassword,int count);
@@ -25,5 +26,8 @@ public interface UserRepository {
 
     UserEntity getByNamePassword(String name,String password);
 
+    UserEntity findByName(String name);
+
+    boolean updateDetails(String name, UserDTO userDTO);
 }
 

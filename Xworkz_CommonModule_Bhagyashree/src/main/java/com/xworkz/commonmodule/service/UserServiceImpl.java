@@ -14,6 +14,7 @@ import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Properties;
 import java.util.Random;
@@ -52,17 +53,17 @@ public class UserServiceImpl implements UserService {
             entity.setCount(count);
         }
         // System.out.println("values" + entity.toString());
-        ValidatorFactory vf= Validation.buildDefaultValidatorFactory();
-        Validator validator=vf.getValidator();
-        Set<ConstraintViolation<UserDTO>> set=validator.validate(userDTO);
-if(set.isEmpty()) {
-    boolean saved = userRepository.save(entity);
-    if (saved) {
-        saveEmail(userDTO.getEmail(), password);
+        ValidatorFactory vf = Validation.buildDefaultValidatorFactory();
+        Validator validator = vf.getValidator();
+        Set<ConstraintViolation<UserDTO>> set = validator.validate(userDTO);
+        if (set.isEmpty()) {
+            boolean saved = userRepository.save(entity);
+            if (saved) {
+                saveEmail(userDTO.getEmail(), password);
 
-    }
-}
-return set;
+            }
+        }
+        return set;
     }
 
     @Override
@@ -106,11 +107,11 @@ return set;
     }
 
     @Override
-    public String updatePasswordByName(String name,String oldPassword,String newPassword, String confirmPassword) {
+    public String updatePasswordByName(String name, String oldPassword, String newPassword, String confirmPassword) {
 
-        String msg=null;
-        UserEntity entity=userRepository.getByNamePassword(name,oldPassword);
-        if(entity!=null) {
+        String msg = null;
+        UserEntity entity = userRepository.getByNamePassword(name, oldPassword);
+        if (entity != null) {
             if (newPassword.equals(confirmPassword)) {
 
                 msg = userRepository.updatePasswordByName(newPassword, name);
@@ -165,7 +166,7 @@ return set;
     public boolean saveEmail(String email, String password) {
 
         System.out.println(email + password);
-        final String username ="hebbalbhagya304@gmail.com";
+        final String username = "hebbalbhagya304@gmail.com";
         final String userPassword = "ukxf fmhi hjte qaes";
 
         Properties prop = new Properties();
@@ -191,7 +192,7 @@ return set;
                     InternetAddress.parse(email)
             );
             message.setSubject("Your password");
-            message.setText("your password : "+password);
+            message.setText("your password : " + password);
 
             Transport.send(message);
 
@@ -203,4 +204,43 @@ return set;
 
         return true;
     }
+    @Override
+    public Set<ConstraintViolation<UserDTO>> updateDetails(String name,UserDTO userDTO) {
+
+        if(userDTO!=null)
+        {
+            userDTO.setName(name);
+            System.out.println(userDTO.toString());
+
+            ValidatorFactory vf = Validation.buildDefaultValidatorFactory();
+            Validator validator = vf.getValidator();
+            Set<ConstraintViolation<UserDTO>> set = validator.validate(userDTO);
+            if(set.isEmpty())
+            {
+                boolean updated=repository.updateDetails( name,userDTO);
+
+            }
+            return set;
+        }
+
+        return null;
+    }
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

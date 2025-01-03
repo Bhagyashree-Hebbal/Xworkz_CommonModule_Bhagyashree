@@ -1,10 +1,12 @@
 package com.xworkz.commonmodule.repository;
 
+import com.xworkz.commonmodule.dto.UserDTO;
 import com.xworkz.commonmodule.entity.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
@@ -186,26 +188,6 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public UserEntity findByName(String name) {
-        EntityManager em = emf.createEntityManager();
-        try {
-            String queryStr = "SELECT ue FROM UserEntity ue WHERE ue.name = :name";
-            Query query = em.createQuery(queryStr);
-            query.setParameter("name", name);
-
-            List<UserEntity> result = query.getResultList();
-            if (!result.isEmpty()) {
-                return result.get(0);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            em.close();
-        }
-        return null;
-    }
-
-    @Override
     public UserEntity getEmail(String email) {
         EntityManager em = emf.createEntityManager();
         EntityTransaction et = em.getTransaction();
@@ -270,7 +252,6 @@ public class UserRepositoryImpl implements UserRepository {
     public void updateCount(String email, int count) {
         int result = count + 1;
         EntityManager em = emf.createEntityManager();
-
         EntityTransaction et = em.getTransaction();
         int value;
         try {
@@ -281,6 +262,7 @@ public class UserRepositoryImpl implements UserRepository {
             if (et.isActive()) {
                 et.rollback();
             }
+            e.printStackTrace();
         } finally {
             em.close();
         }
@@ -330,4 +312,80 @@ public class UserRepositoryImpl implements UserRepository {
         }
         return entity;
     }
+
+    @Override
+    public UserEntity findByName(String name) {
+        EntityManager em = emf.createEntityManager();
+        try {
+            String queryStr = "getNameByUpdateDetails";
+            Query query = em.createQuery(queryStr);
+            query.setParameter("name", name);
+
+            List<UserEntity> result = query.getResultList();
+            if (!result.isEmpty()) {
+                return result.get(0);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            em.close();
+        }
+        return null;
+    }
+
+
+@Override
+public boolean updateDetails(String name, UserDTO dto) {
+
+
+    System.out.println(dto.toString());
+    System.out.println(name);
+    EntityManager em=emf.createEntityManager();
+    EntityTransaction et=em.getTransaction();
+
+    boolean isUpdated=false;
+    try{
+        et.begin();
+        int value = em.createNamedQuery("UpdateDetails")
+                .setParameter("setEmail", dto.getEmail())
+                .setParameter("setPhone", dto.getPhone())
+                .setParameter("setAlterEmail", dto.getAlterEmail())
+                .setParameter("setAlterPhone", dto.getAlterPhone())
+                .setParameter("setLocation", dto.getLocation())
+                .setParameter("setUpdatedBy", dto.getName())
+                .setParameter("setUpdatedDate", LocalDateTime.now())
+                .setParameter("byName", name)
+                .executeUpdate();
+        if(value>0)
+        {
+            isUpdated=true;
+
+            System.out.println("updated");
+        }
+        else
+        {
+            isUpdated=false;
+            System.out.println("not Updated");
+        }
+        et.commit();
+    }
+    catch(Exception e)
+    {
+        if(et.isActive())
+        {
+            et.rollback();
+        }
+
+    }
+    finally {
+        em.close();
+        //` emf.close();
+    }
+    if(isUpdated)
+    {
+        System.out.println("updated");
+        return true;
+    }
+  return false;
+}
 }

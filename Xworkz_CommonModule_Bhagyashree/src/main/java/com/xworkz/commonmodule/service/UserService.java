@@ -23,4 +23,6 @@ public interface UserService {
 
     boolean saveEmail(String email,String password);
 
+    Set<ConstraintViolation<UserDTO>> updateDetails(String name,UserDTO userDTO);
+
 }

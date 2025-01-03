@@ -9,6 +9,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "user_table")
 @RequiredArgsConstructor
+
 @NamedQuery(name = "getNameByEmailAndPassword" ,query="select ue.name from UserEntity ue where ue.email = :byEmail and ue.password = :byPassword")
 @NamedQuery(name = "countByName" , query ="select count(*) from UserEntity ue where ue.name = :SetName")
 @NamedQuery(name = "countByEmail", query = "select count(*) from UserEntity ue where ue.email = :SetEmail")
@@ -24,6 +25,16 @@ import javax.persistence.*;
 @NamedQuery(name = "resetCount",query="update UserEntity ue set ue.count = :setCount where ue.email = :byEmail")
 @NamedQuery(name = "getByNamePassword" , query = "select ue from UserEntity ue where ue.name = :setName and ue.password = :setPassword")
 
+@NamedQuery(name = "UpdateDetails", query = "UPDATE UserEntity ue " +
+                "SET ue.email = :setEmail, " +
+                "ue.phone = :setPhone, " +
+                "ue.alterEmail = :setAlterEmail, " +
+                "ue.alterPhone = :setAlterPhone, " +
+                "ue.location = :setLocation, " +
+                "ue.updatedBy = :setUpdatedBy, " +
+                "ue.updatedDate = :setUpdatedDate " +
+                "WHERE ue.name = :byName"
+)
 public class UserEntity extends AbstractAuditEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
