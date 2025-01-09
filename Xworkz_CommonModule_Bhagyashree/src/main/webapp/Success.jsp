@@ -51,6 +51,9 @@
   <div class="container">
     <h2 class="success-message">Success!</h2>
     <p class="lead">Your action was successful. Thank you for your submission!</p>
+
+    <img src="download?filePath=${filePath}" alt="profile picture" width="100" height="100">
+
     <form action="update" method="get">
 <input type="text" name="name" value="${userName}" />
     <input type="submit" value="Update Profile">

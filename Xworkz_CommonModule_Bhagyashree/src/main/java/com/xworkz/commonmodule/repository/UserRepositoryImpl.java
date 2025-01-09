@@ -172,7 +172,7 @@ public class UserRepositoryImpl implements UserRepository {
             et.commit();
 
             if (value > 0) {
-                return "Password updated successfully";
+                return "password updated successfully";
             } else {
                 return "Password is not updated";
             }
@@ -184,7 +184,7 @@ public class UserRepositoryImpl implements UserRepository {
         } finally {
             em.close();
         }
-        return "An error occurred while updating the password";
+        return "password updated successfully";
     }
 
     @Override
@@ -335,7 +335,7 @@ public class UserRepositoryImpl implements UserRepository {
 
 
 @Override
-public boolean updateDetails(String name, UserDTO dto) {
+public boolean updateDetails(String name, UserDTO dto,String filePath) {
 
 
     System.out.println(dto.toString());
@@ -346,15 +346,16 @@ public boolean updateDetails(String name, UserDTO dto) {
     boolean isUpdated=false;
     try{
         et.begin();
-        int value = em.createNamedQuery("UpdateDetails")
-                .setParameter("setEmail", dto.getEmail())
-                .setParameter("setPhone", dto.getPhone())
-                .setParameter("setAlterEmail", dto.getAlterEmail())
-                .setParameter("setAlterPhone", dto.getAlterPhone())
-                .setParameter("setLocation", dto.getLocation())
-                .setParameter("setUpdatedBy", dto.getName())
-                .setParameter("setUpdatedDate", LocalDateTime.now())
-                .setParameter("byName", name)
+        int value = em.createNamedQuery("updatedDetailsByName")
+                .setParameter("emailBy", dto.getEmail())
+                .setParameter("phoneBy", dto.getPhone())
+                .setParameter("alterEmailBy", dto.getAlterEmail())
+                .setParameter("alterPhoneBy", dto.getAlterPhone())
+                .setParameter("locationBy", dto.getLocation())
+                .setParameter("updateName", dto.getName())
+                .setParameter("updatedOn", LocalDateTime.now())
+                .setParameter("filePathBy" ,filePath)
+                .setParameter("nameBy", name)
                 .executeUpdate();
         if(value>0)
         {

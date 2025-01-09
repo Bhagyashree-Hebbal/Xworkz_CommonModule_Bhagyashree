@@ -64,7 +64,7 @@
 <c:forEach items="${error}" var="i">
     <span style="color:red">${i.message}</span>
 </c:forEach>
-        <form action="updateProfile" method="post">
+            <form action="updateProfile" method="post" enctype="multipart/form-data">
             <h2 class="text-center">Update Profile</h2>
 
             <!-- Name input field -->
@@ -106,6 +106,8 @@
                       </c:forEach>
                 </select>
             </div>
+
+            <input type="file" name="picture" />
 
             <!-- Submit button -->
             <button type="submit" class="btn btn-primary btn-block">Update Profile</button>

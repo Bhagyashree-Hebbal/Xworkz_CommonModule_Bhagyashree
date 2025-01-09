@@ -5,12 +5,20 @@ import com.xworkz.commonmodule.dto.UserDTO;
 import com.xworkz.commonmodule.entity.UserEntity;
 import com.xworkz.commonmodule.service.UserService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.ConstraintViolation;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -64,44 +72,77 @@ public class UserController {
         }
     }
 
-    @PostMapping("/signin")
+    @PostMapping("/signIn")
     public String onSearch(@RequestParam String email, @RequestParam String password, Model model) {
+
         System.out.println(email + " " +password);
         UserEntity userEntity = userService.getEmail(email, password);
 
-        if(userEntity != null) {
-            int count=userEntity.getCount();
-            System.out.println(count);
+        int logInCount;
 
-            if(count==-1)
-            {
-                String name=userEntity.getName();
-                model.addAttribute("userName",name);
+        if (userEntity != null) {
+            logInCount = userEntity.getCount();
+            System.out.println("Login Count: " + logInCount);
+
+            if (logInCount == -1) {
+                System.out.println("Redirecting to UpdatePassword page.");
+                String name = userEntity.getName();
+                model.addAttribute("userName", name);
                 return "UpdatePassword";
-            }
-            else
-            {
-                String name=userEntity.getName();
-                model.addAttribute("userName",name);
+            } else {
+                System.out.println("Redirecting to Success page.");
+                String name = userEntity.getName();
+                model.addAttribute("userName", name);
+                model.addAttribute("filePath",userEntity.getFilePath());
                 return "Success";
             }
         }
+        System.out.println("User entity is null. Redirecting to SignIn.");
         return "SignIn";
 
     }
 
 
     @PostMapping("/updateProfile")
-    public String onUpdating(@RequestParam String name, UserDTO userDTO, Model model) {
+    public String onUpdating(@RequestParam String name, UserDTO userDTO, @RequestParam("picture") MultipartFile multipartFile, Model model) throws IOException {
         System.out.println(name);
-        Set<ConstraintViolation<UserDTO>> set = userService.updateDetails(name, userDTO);
-        if (set.isEmpty()) {
+
+        if (multipartFile.isEmpty()) {
             // Add the name to the model to pass it to the Success page
-            model.addAttribute("userName", name);
-            return "Success";
+            Set<ConstraintViolation<UserDTO>> set = userService.updateDetails(name, userDTO,null);
+           // model.addAttribute("userName", name);
+            if(set.isEmpty()){
+                return "Success";
+            }
+        }else{
+            System.out.println("multipartFile="+multipartFile);
+            System.out.println("multipartFile OriginalFileName=="+multipartFile.getOriginalFilename());
+            System.out.println("multipartFile=="+multipartFile.getContentType());
+
+            byte[] bytes = multipartFile.getBytes();
+            Path path = Paths.get("C:\\fileUpload\\" + name + System.currentTimeMillis() + ".jpg");
+            Files.write(path, bytes);
+            String filePath = path.getFileName().toString();
+            System.err.println("filePath=====" + filePath);
+
+            Set<ConstraintViolation<UserDTO>> set = userService.updateDetails(name, userDTO,filePath);
+            if(set.isEmpty()){
+                return "Success";
+            }
         }
         return "UpdateProfile";
     }
 
+    @GetMapping("/download")
+    public void display(HttpServletResponse response,@RequestParam String filePath) throws  Exception{
+        System.out.println("this is image"+filePath);
+        response.setContentType("Image/jpg");
+        File file = new File("C:\\fileUpload\\" + filePath);
+        InputStream inputStream = new BufferedInputStream(new FileInputStream(file));
+        ServletOutputStream outputStream = response.getOutputStream();
+        IOUtils.copy(inputStream, outputStream);
+        response.flushBuffer();
+
+    }
 
 }

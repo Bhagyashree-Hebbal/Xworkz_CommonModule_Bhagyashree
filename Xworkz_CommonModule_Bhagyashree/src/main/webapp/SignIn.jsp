@@ -98,7 +98,7 @@
     <!-- Sign In Form -->
     <div class="signin-container mt-5">
         <h2>Sign In</h2>
-        <form action="signin" method="post">
+        <form action="signIn" method="post">
             <div class="form-group">
                 <input type="email" name="email" class="form-control" placeholder="Enter your email" required>
             </div>
@@ -107,10 +107,7 @@
             </div>
             <button type="submit" class="btn btn-primary">Sign In</button>
         </form>
-        <div class="reset-link">
-            <a href="UpdatePassword.jsp" class="btn btn-link">Update your Password</a>
 
-        </div>
         <div class="message">${msg}</div>
     </div>
 

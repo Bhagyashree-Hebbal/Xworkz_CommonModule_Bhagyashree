@@ -28,6 +28,6 @@ public interface UserRepository {
 
     UserEntity findByName(String name);
 
-    boolean updateDetails(String name, UserDTO userDTO);
+    boolean updateDetails(String name, UserDTO userDTO,String filePath);
 }
 

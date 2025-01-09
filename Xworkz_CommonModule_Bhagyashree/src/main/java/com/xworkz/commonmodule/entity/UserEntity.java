@@ -25,16 +25,7 @@ import javax.persistence.*;
 @NamedQuery(name = "resetCount",query="update UserEntity ue set ue.count = :setCount where ue.email = :byEmail")
 @NamedQuery(name = "getByNamePassword" , query = "select ue from UserEntity ue where ue.name = :setName and ue.password = :setPassword")
 
-@NamedQuery(name = "UpdateDetails", query = "UPDATE UserEntity ue " +
-                "SET ue.email = :setEmail, " +
-                "ue.phone = :setPhone, " +
-                "ue.alterEmail = :setAlterEmail, " +
-                "ue.alterPhone = :setAlterPhone, " +
-                "ue.location = :setLocation, " +
-                "ue.updatedBy = :setUpdatedBy, " +
-                "ue.updatedDate = :setUpdatedDate " +
-                "WHERE ue.name = :byName"
-)
+@NamedQuery(name="updatedDetailsByName",query="update UserEntity ue set ue.email = :emailBy,ue.phone = :phoneBy,ue.alterEmail =:alterEmailBy,ue.alterPhone= :alterPhoneBy,ue.location =:locationBy, ue.updatedBy = :updateName, ue.updatedDate= :updatedOn, ue.filePath= :filePathBy where ue.name= :nameBy")
 public class UserEntity extends AbstractAuditEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

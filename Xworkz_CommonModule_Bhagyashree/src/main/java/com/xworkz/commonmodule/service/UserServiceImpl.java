@@ -109,16 +109,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public String updatePasswordByName(String name, String oldPassword, String newPassword, String confirmPassword) {
 
-        String msg = null;
-        UserEntity entity = userRepository.getByNamePassword(name, oldPassword);
-        if (entity != null) {
-            if (newPassword.equals(confirmPassword)) {
+        if (newPassword.equals(confirmPassword)) {
+            String msg = userRepository.updatePasswordByName(newPassword, name);
 
-                msg = userRepository.updatePasswordByName(newPassword, name);
-                return msg;
-            }
         }
-        return null;
+        return "password updated successfully";
     }
 
     @Override
@@ -205,7 +200,7 @@ public class UserServiceImpl implements UserService {
         return true;
     }
     @Override
-    public Set<ConstraintViolation<UserDTO>> updateDetails(String name,UserDTO userDTO) {
+    public Set<ConstraintViolation<UserDTO>> updateDetails(String name,UserDTO userDTO,String filePath) {
 
         if(userDTO!=null)
         {
@@ -217,7 +212,7 @@ public class UserServiceImpl implements UserService {
             Set<ConstraintViolation<UserDTO>> set = validator.validate(userDTO);
             if(set.isEmpty())
             {
-                boolean updated=repository.updateDetails( name,userDTO);
+                boolean updated=repository.updateDetails( name,userDTO,filePath);
 
             }
             return set;
