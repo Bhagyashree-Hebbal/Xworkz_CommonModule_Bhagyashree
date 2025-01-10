@@ -145,4 +145,19 @@ public class UserController {
 
     }
 
+    @PostMapping("/resetPassword")
+    public String forgotPassword(@RequestParam String email,@RequestParam String newPassword,@RequestParam String confirmPassword){
+        System.out.println("Received request for resetting password:");
+        System.out.println("Email:"+email);
+        System.out.println("New Password:" + newPassword);
+        System.out.println("ConfirmPassword:" + confirmPassword);
+
+        String response = userService.resetPasswordByEmail(email,newPassword,confirmPassword);
+
+        if("password updated successfully".equals(response)) {
+            return "Success";
+        }else{
+            return "ForgotPassword";
+        }
+    }
 }

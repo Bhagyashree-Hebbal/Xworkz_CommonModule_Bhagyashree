@@ -26,6 +26,8 @@ import javax.persistence.*;
 @NamedQuery(name = "getByNamePassword" , query = "select ue from UserEntity ue where ue.name = :setName and ue.password = :setPassword")
 
 @NamedQuery(name="updatedDetailsByName",query="update UserEntity ue set ue.email = :emailBy,ue.phone = :phoneBy,ue.alterEmail =:alterEmailBy,ue.alterPhone= :alterPhoneBy,ue.location =:locationBy, ue.updatedBy = :updateName, ue.updatedDate= :updatedOn, ue.filePath= :filePathBy where ue.name= :nameBy")
+@NamedQuery(name = "resetPasswordByEmail", query = "update UserEntity ue set ue.password = :setNewPassword where ue.email = :emailBy")
+@NamedQuery(name = "accountLockedTimeByEmail", query = "update UserEntity ue set ue.accountLockedTime = :accountLockedTimeBy where ue.email = :emailBy")
 public class UserEntity extends AbstractAuditEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

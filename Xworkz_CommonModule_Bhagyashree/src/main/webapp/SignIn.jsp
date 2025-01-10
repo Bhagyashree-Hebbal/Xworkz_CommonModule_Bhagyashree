@@ -107,7 +107,7 @@
             </div>
             <button type="submit" class="btn btn-primary">Sign In</button>
         </form>
-
+        <a href="ForgotPassword.jsp">ForgotPassword?</a>
         <div class="message">${msg}</div>
     </div>
 

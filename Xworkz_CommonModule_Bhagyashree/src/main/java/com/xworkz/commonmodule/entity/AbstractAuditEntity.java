@@ -16,4 +16,6 @@ public class AbstractAuditEntity implements Serializable {
     private LocalDateTime updatedDate ;
     @Column(name = "file_path")
     private String filePath;
+    @Column(name = "account_locked_time")
+    private LocalDateTime accountLockedTime;
 }

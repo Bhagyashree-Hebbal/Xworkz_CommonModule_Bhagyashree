@@ -25,5 +25,5 @@ public interface UserService {
 
     Set<ConstraintViolation<UserDTO>> updateDetails(String name,UserDTO userDTO,String filePath);
 
-    
+    String resetPasswordByEmail(String email,String newPassword,String confirmPassword);
 }

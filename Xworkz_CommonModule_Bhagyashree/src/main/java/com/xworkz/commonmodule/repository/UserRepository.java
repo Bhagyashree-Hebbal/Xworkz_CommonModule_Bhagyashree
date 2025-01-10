@@ -29,5 +29,10 @@ public interface UserRepository {
     UserEntity findByName(String name);
 
     boolean updateDetails(String name, UserDTO userDTO,String filePath);
+
+    String resetPasswordByEmail(String email, String newPassword);
+
+    String updateLockedAccountTimeByEmail(String email);
+
 }
 

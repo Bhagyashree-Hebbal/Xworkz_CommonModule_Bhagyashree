@@ -132,6 +132,8 @@ public class UserServiceImpl implements UserService {
 
             } else if (!(password.equals(entity.getPassword())) && entity.getCount() == 3) {
                 System.out.println("locked");
+                if(entity.getAccountLockedTime()==null)
+                    repository.updateLockedAccountTimeByEmail(email);
                 return null;
             } else if (password.equals(entity.getPassword()) && (entity.getCount() < 3 && entity.getCount() > -1)) {
                 boolean reset = repository.resetCount(email, entity.getCount());
@@ -219,6 +221,16 @@ public class UserServiceImpl implements UserService {
         }
 
         return null;
+    }
+
+    @Override
+    public String resetPasswordByEmail(String email, String newPassword, String confirmPassword) {
+        System.out.println("reset password in service");
+        if(newPassword.equals(confirmPassword)){
+            userRepository.getEmail(email);
+            return userRepository.resetPasswordByEmail(email, newPassword);
+        }
+        return "password updated successfully";
     }
 
 }

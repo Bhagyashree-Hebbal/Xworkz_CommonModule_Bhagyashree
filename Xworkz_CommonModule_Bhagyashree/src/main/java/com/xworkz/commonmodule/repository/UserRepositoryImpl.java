@@ -389,4 +389,66 @@ public boolean updateDetails(String name, UserDTO dto,String filePath) {
     }
   return false;
 }
+
+    @Override
+    public String resetPasswordByEmail(String email, String newPassword) {
+        System.out.println("Entering repository resetPasswordByEmail");
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction et = em.getTransaction();
+
+        try{
+            et.begin();
+
+            Query query = em.createNamedQuery("resetPasswordByEmail");
+            query.setParameter("setNewPassword",newPassword);
+            query.setParameter("emailBy",email);
+
+            int value = query.executeUpdate();
+            et.commit();
+
+            System.out.println("Rows affected:" +value);
+
+            if(value>0){
+                return "password updated successfully";
+            }else {
+                return "Password Updated";
+                }
+            }catch(Exception e){
+                if(et.isActive()){
+                    et.rollback();
+                }
+            }finally{
+            em.close();
+            }
+            return "password updated successfully";
+        }
+
+    @Override
+    public String updateLockedAccountTimeByEmail(String email) {
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction et = em.getTransaction();
+
+        try{
+            et.begin();
+            Query query = em.createNamedQuery("accountLockedTimeByEmail");
+            query.setParameter("accountLockedTimeBy",LocalDateTime.now());
+            query.setParameter("emailBy",email);
+
+            int value = query.executeUpdate();
+            et.commit();
+
+            if(value > 0){
+                System.out.println("Account lock time is set to current time");
+            }else{
+                System.out.println("Failed to set account lock time");
+            }
+        }catch (Exception e){
+            if(et.isActive()){
+                et.rollback();
+            }
+        }finally {
+            em.close();
+        }
+        return "Account lock time is set";
+    }
 }
